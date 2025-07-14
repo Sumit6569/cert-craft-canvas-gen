@@ -1,73 +1,162 @@
-# Welcome to your Lovable project
+# Certificate Generator
 
-## Project info
+A modern, AI-powered certificate generator that creates beautiful, professional certificates using Canvas.js and intelligent design templates.
 
-**URL**: https://lovable.dev/projects/e6b4b73b-96d9-46ea-9fbf-0687118f6ee0
+## ✨ Features
 
-## How can I edit this code?
+- **AI-Powered Design Generation**: Generate 5 unique certificate designs for any category
+- **Interactive Canvas**: Real-time certificate editing with Fabric.js
+- **Multiple Themes**: Gold, Royal, Elegant, Modern, and Classic design themes
+- **Code Export**: View and copy the Canvas.js implementation code for each design
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Professional Templates**: Carefully crafted layouts with proper typography and spacing
 
-There are several ways of editing your application.
+## 🚀 Demo
 
-**Use Lovable**
+Enter any certificate category (e.g., "Summer Code Camp", "AI for Farmers", "Leadership Training") and watch as the AI generates 5 unique, professional certificate designs with their corresponding implementation code.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e6b4b73b-96d9-46ea-9fbf-0687118f6ee0) and start prompting.
+## 🛠️ Technologies Used
 
-Changes made via Lovable will be committed automatically to this repo.
+- **React 18** - Modern React with TypeScript
+- **Fabric.js v6** - Powerful HTML5 canvas library for interactive graphics
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Beautiful, accessible UI components
+- **Vite** - Lightning-fast build tool
+- **TypeScript** - Type-safe development
 
-**Use your preferred IDE**
+## 📦 Installation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
+- Node.js 16+ and npm (recommended: install with [nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Setup
 
-Follow these steps:
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd certificate-generator
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## 🏗️ Project Structure
+
+```
+src/
+├── components/
+│   ├── CertificateGenerator.tsx    # Main generator component
+│   ├── CertificateCanvas.tsx       # Canvas rendering component
+│   └── ui/                         # Reusable UI components
+├── lib/
+│   ├── certificateGenerator.ts     # AI design generation logic
+│   └── utils.ts                    # Utility functions
+├── pages/
+│   └── Index.tsx                   # Main page
+└── index.css                       # Global styles and design tokens
 ```
 
-**Edit a file directly in GitHub**
+## 🎨 Design System
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The project uses a carefully crafted design system with:
+- **Semantic color tokens** for consistent theming
+- **Professional typography** with proper hierarchy
+- **Certificate-specific color palettes** (gold, royal blue, elegant purple, etc.)
+- **Responsive layouts** that work on all devices
 
-**Use GitHub Codespaces**
+## 🔧 Key Components
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### CertificateGenerator
+The main component that handles:
+- Category input and validation
+- Design generation workflow
+- UI state management
+- Error handling
 
-## What technologies are used for this project?
+### CertificateCanvas
+Renders certificates using Fabric.js:
+- Real-time canvas rendering
+- Interactive design elements
+- Export functionality
+- Responsive canvas sizing
 
-This project is built with:
+### Certificate Generator Logic
+AI-powered design generation:
+- Theme-based color palettes
+- Layout algorithms
+- Code generation for each design
+- Category-specific customization
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🚀 Deployment
 
-## How can I deploy this project?
+### Build for Production
+```bash
+npm run build
+```
 
-Simply open [Lovable](https://lovable.dev/projects/e6b4b73b-96d9-46ea-9fbf-0687118f6ee0) and click on Share -> Publish.
+### Preview Production Build
+```bash
+npm run preview
+```
 
-## Can I connect a custom domain to my Lovable project?
+### Deploy to Vercel
+```bash
+npm install -g vercel
+vercel
+```
 
-Yes, you can!
+### Deploy to Netlify
+```bash
+npm run build
+# Upload the dist/ folder to Netlify
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🎯 Usage Examples
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+1. **Educational Certificates**
+   - "Computer Science Bootcamp"
+   - "Digital Marketing Course"
+   - "Data Science Workshop"
+
+2. **Professional Training**
+   - "Leadership Development"
+   - "Project Management"
+   - "Safety Training"
+
+3. **Events & Competitions**
+   - "Hackathon Winner"
+   - "Science Fair Participant"
+   - "Innovation Challenge"
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🆘 Support
+
+If you encounter any issues or have questions:
+1. Check the existing issues in the repository
+2. Create a new issue with detailed information
+3. Include steps to reproduce any bugs
+
+---
+
+**Built with ❤️ using modern web technologies**
