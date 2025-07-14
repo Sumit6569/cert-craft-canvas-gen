@@ -61,7 +61,27 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				certificate: {
+					gold: 'hsl(var(--certificate-gold))',
+					'gold-dark': 'hsl(var(--certificate-gold-dark))',
+					bronze: 'hsl(var(--certificate-bronze))',
+					silver: 'hsl(var(--certificate-silver))',
+					royal: 'hsl(var(--certificate-royal))',
+					emerald: 'hsl(var(--certificate-emerald))'
 				}
+			},
+			backgroundImage: {
+				'gradient-gold': 'var(--gradient-gold)',
+				'gradient-royal': 'var(--gradient-royal)',
+				'gradient-elegant': 'var(--gradient-elegant)'
+			},
+			boxShadow: {
+				'certificate': 'var(--shadow-certificate)',
+				'elegant': 'var(--shadow-elegant)'
+			},
+			transitionTimingFunction: {
+				'smooth': 'var(--transition-smooth)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
