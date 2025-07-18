@@ -24,32 +24,9 @@ export const CertificateGenerator = () => {
   const [designs, setDesigns] = useState<CertificateDesign[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedDesign, setSelectedDesign] = useState<number | null>(null);
-  const [apiKey, setApiKey] = useState('');
-  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const { toast } = useToast();
 
-  useEffect(() => {
-    // Check if API key exists in localStorage
-    const savedApiKey = localStorage.getItem('openai_api_key');
-    if (savedApiKey) {
-      setApiKey(savedApiKey);
-    } else {
-      setShowApiKeyInput(true);
-    }
-  }, []);
-
-  const saveApiKey = () => {
-    if (apiKey.trim()) {
-      localStorage.setItem('openai_api_key', apiKey.trim());
-      setShowApiKeyInput(false);
-      toast({
-        title: "API Key Saved",
-        description: "Your OpenAI API key has been saved securely in your browser.",
-      });
-    }
-  };
-
-  const handleGenerate = async () => {
+  const handleGenerate = () => {
     if (!category.trim()) {
       toast({
         title: "Category Required",
@@ -61,7 +38,7 @@ export const CertificateGenerator = () => {
 
     setIsGenerating(true);
     try {
-      const generatedDesigns = await generateCertificateDesigns(category);
+      const generatedDesigns = generateCertificateDesigns(category);
       setDesigns(generatedDesigns);
       toast({
         title: "Certificates Generated!",
@@ -101,101 +78,48 @@ export const CertificateGenerator = () => {
           <Sparkles className="h-8 w-8 text-certificate-royal" />
         </div>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Generate beautiful, professional certificates using AI-powered design and Canvas.js rendering
+          Generate beautiful, professional certificates using predefined templates and Canvas.js rendering
         </p>
       </div>
 
-      {/* API Key Setup */}
-      {showApiKeyInput && (
-        <Card className="mb-8 border-orange-200 bg-orange-50 dark:bg-orange-950/20">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-orange-700 dark:text-orange-300">
-              <AlertCircle className="h-5 w-5" />
-              OpenAI API Key Required
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <p className="text-sm text-orange-600 dark:text-orange-400">
-                For security, we recommend using{' '}
-                <a 
-                  href="https://lovable.dev/integrations/supabase" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="underline hover:no-underline inline-flex items-center gap-1"
-                >
-                  Supabase integration <ExternalLink className="h-3 w-3" />
-                </a>{' '}
-                to store API keys securely. For now, your key will be stored locally in your browser.
-              </p>
-              <div className="flex gap-2">
-                <Input
-                  type="password"
-                  placeholder="Enter your OpenAI API key (sk-...)"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  className="flex-1"
-                />
-                <Button onClick={saveApiKey} disabled={!apiKey.trim()}>
-                  <Key className="h-4 w-4" />
-                  Save Key
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
       {/* Settings */}
-      {!showApiKeyInput && (
-        <Card className="mb-8 shadow-elegant">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <Code className="h-5 w-5" />
-                Certificate Configuration
-              </CardTitle>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setShowApiKeyInput(true)}
-              >
-                <Key className="h-4 w-4" />
-                Update API Key
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-4">
-              <Input
-                placeholder="Enter certificate category (e.g., 'Summer Code Camp Certificate', 'AI for Farmers')"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="flex-1"
-                onKeyPress={(e) => e.key === 'Enter' && handleGenerate()}
-              />
-              <Button 
-                onClick={handleGenerate} 
-                disabled={isGenerating || !apiKey}
-                variant="premium"
-                size="lg"
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Generating with AI...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="h-4 w-4" />
-                    Generate with AI
-                  </>
-                )}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      <Card className="mb-8 shadow-elegant">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Code className="h-5 w-5" />
+            Certificate Configuration
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-4">
+            <Input
+              placeholder="Enter certificate category (e.g., 'Summer Code Camp Certificate', 'AI for Farmers')"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="flex-1"
+              onKeyPress={(e) => e.key === 'Enter' && handleGenerate()}
+            />
+            <Button 
+              onClick={handleGenerate} 
+              disabled={isGenerating}
+              variant="premium"
+              size="lg"
+            >
+              {isGenerating ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-4 w-4" />
+                  Generate Certificates
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Results Section */}
       {designs.length > 0 && (

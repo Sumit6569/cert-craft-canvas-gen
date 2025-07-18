@@ -1,85 +1,14 @@
-import type { CertificateDesign } from '@/components/CertificateGenerator';
-
-interface OpenAIResponse {
-  choices: Array<{
-    message: {
-      content: string;
-    };
-  }>;
+export interface CertificateDesign {
+  id: string;
+  name: string;
+  theme: 'gold' | 'royal' | 'elegant' | 'modern' | 'classic';
+  layout: string;
+  colors: string[];
+  elements: string[];
+  code: string;
 }
 
-export const generateCertificateDesigns = async (category: string, apiKey?: string): Promise<CertificateDesign[]> => {
-  const openaiApiKey = apiKey || localStorage.getItem('openai_api_key');
-  
-  if (!openaiApiKey) {
-    throw new Error('OpenAI API key is required');
-  }
-
-  try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${openaiApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-4.1-2025-04-14',
-        messages: [
-          {
-            role: 'system',
-            content: `You are a professional certificate designer. Generate 5 unique certificate design concepts for the given category. 
-            Return a JSON array with exactly 5 objects, each containing:
-            - name: Creative design name
-            - theme: One of [gold, royal, elegant, modern, classic, vibrant, minimalist]
-            - layout: Brief description of the layout
-            - colors: Array of 3 hex colors [background, primary, accent]
-            - elements: Array of 4-5 design elements/features
-            
-            Make each design unique and appropriate for the category. Ensure valid JSON format.`
-          },
-          {
-            role: 'user',
-            content: `Create 5 certificate designs for: ${category}`
-          }
-        ],
-        temperature: 0.8,
-        max_tokens: 1500,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
-    }
-
-    const data: OpenAIResponse = await response.json();
-    const designsJson = data.choices[0].message.content;
-    
-    let aiDesigns;
-    try {
-      aiDesigns = JSON.parse(designsJson);
-    } catch (parseError) {
-      console.error('Failed to parse AI response:', designsJson);
-      throw new Error('Invalid response format from AI');
-    }
-
-    return aiDesigns.map((design: any, index: number) => ({
-      id: `cert-ai-${index + 1}`,
-      name: design.name || `AI Design ${index + 1}`,
-      theme: design.theme || 'modern',
-      layout: design.layout || 'Professional certificate layout',
-      colors: design.colors || ['#F1F5F9', '#0F172A', '#475569'],
-      elements: design.elements || ['Border', 'Typography', 'Layout', 'Decoration'],
-      code: generateCanvasCode(design, category, index + 1)
-    }));
-
-  } catch (error) {
-    console.error('Error calling OpenAI API:', error);
-    // Fallback to original designs if API fails
-    return getFallbackDesigns(category);
-  }
-};
-
-const getFallbackDesigns = (category: string): CertificateDesign[] => {
+export const generateCertificateDesigns = (category: string): CertificateDesign[] => {
 
   const baseDesigns = [
     {
